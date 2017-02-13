@@ -55,7 +55,6 @@ angular.module('app',['ngRoute','ngFileUpload','ngAnimate', 'ngSanitize', 'ui.bo
 
         $scope.$on('$routeChangeSuccess',function(event, previous, current){
             $scope.isLogin = auth.isLogin();
-            console.log($scope.isLogin)
         })
 })
     

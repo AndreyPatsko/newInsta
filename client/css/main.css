@@ -1,7 +1,9 @@
-.images {
+* { box-sizing: border-box; }
+
+/*.images {
     list-style: none;
     display:inline-block;
-}
+}*/
 
 
 .modal-content img {
@@ -9,3 +11,24 @@
     width: 100%;
 }
 
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.grid-sizer,
+.grid-item {
+  width: 23%;
+}
+
+.grid-item {
+  float: left;
+  margin-bottom: 10px;
+}
+
+.grid-item img {
+  display: block;
+  max-width: 100%;
+  border: 1px solid black;
+}

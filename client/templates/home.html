@@ -15,11 +15,20 @@
         
         <div class="col-md-9">
           <div class="jumbotron text-center well">
-              <ul class="ulImages">
+            <div class="grid">
+              <div class="grid-sizer"></div>
+              <div class="grid-item" ng-repeat="image in images">
+                  <img ng-src="{{image.url}}" ng-click="openModal(image.url)"></img><span class="glyphicon glyphicon-remove" ng-click="deleteImage($index)" ng-show="thisUser"></span>
+              </div>
+            </div>
+
+
+              <!--<ul class="ulImages">
                 <li class='images thumbnail' ng-repeat="image in images">
-                  <img ng-src="{{image.url}}" ng-click="openModal(image.url)" ></img><span class="glyphicon glyphicon-remove" ng-click="deleteImage($index)" ng-show="thisUser"></span>
+                  <img ng-src="{{image.url}}" ng-click="openModal(image.url)" ></img>
+                  <span class="glyphicon glyphicon-remove" ng-click="deleteImage($index)" ng-show="thisUser"></span>
                 </li>
-              </ul>
+              </ul>-->
               <div ng-show="thisUser">
               <h4>Выберите файл для загрузки</h4>
               <button ng-model="picFile" ngf-select="uploadFiles($files, $invalidFiles)" multiple

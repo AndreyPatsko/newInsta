@@ -5,6 +5,17 @@ angular.module('app')
     // if(token == null){
     //     $location.path('/login');
     // }else{
+
+        // let msnry = new Masonry('.grid',{
+        //     itemSelector: '.grid-item',
+        //     columnWidth: '.grid-sizer',
+        //     percentPosition: true
+        // })
+
+        let msnry;
+
+
+
         let token = window.localStorage.getItem('jwt');
         $scope.thisUser = false;
 
@@ -17,6 +28,18 @@ angular.module('app')
            $http.post('/getImagesCurrentUser',$scope.currentUser)
             .then(function(data){
                 $scope.images = data.data;
+
+                imagesLoaded( '.grid', function() {
+                    // init Isotope after all images have loaded
+                    msnry = new Masonry( '.grid', {
+                        itemSelector: '.grid-item',
+                        columnWidth: '.grid-sizer',
+                        gutter:10,
+                        percentPosition: true
+                    });
+
+                });
+
             })
        })
        .then(function(){
@@ -32,6 +55,8 @@ angular.module('app')
                }
        })
 
+       
+
     $scope.uploadFiles = function(files, errFiles) {
         $scope.files = files;
         $scope.errFiles = errFiles;
@@ -46,6 +71,7 @@ angular.module('app')
                 $timeout(function () {
                     file.result = response.data;
                     $scope.images.push({url:response.data.url,public_id:response.data.public_id});
+                    msnry.reloadItems();
                 });
             }, function (response) {
                 if (response.status > 0)
@@ -67,11 +93,13 @@ angular.module('app')
         $http.delete('/home/image/'+$scope.images[$index].id)
             .success(function(){
                  $scope.images.splice($index,1)
+                 msnry.reloadItems();
             })
       };
 
         $scope.changeProfile = function(){
             $http.post('/updateUser',$scope.currentUser)
+           
         };
     // }
 })
